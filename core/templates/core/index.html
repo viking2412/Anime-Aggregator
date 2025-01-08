@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Aggregator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Anime Aggregator</h1>
+    </header>
+    <main>
+        <section id="anime-list">
+            <h2>Popular Anime</h2>
+            <ul>
+                {% for anime in anime_list %}
+                <li>
+                    <strong>{{ anime.title }}</strong> - {{ anime.genre }}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <form id="search-form">
+            <input type="text" name="query" placeholder="Search for anime..." required>
+            <button type="submit">Search</button>
+        </form>
+        
+        <div id="results"></div>
+        
+        <script>
+            const form = document.getElementById('search-form');
+            const resultsDiv = document.getElementById('results');
+        
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const query = new FormData(form).get('query');
+        
+                const response = await fetch(`/search/?query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+        
+                if (data.error) {
+                    resultsDiv.innerHTML = `<p>${data.error}</p>`;
+                } else {
+                    resultsDiv.innerHTML = `
+                        <h2>${data.title.romaji || data.title.english || data.title.native}</h2>
+                        <img src="${data.coverImage.large}" alt="${data.title.romaji}">
+                        <p>${data.description}</p>
+                        <p>Genres: ${data.genres.join(', ')}</p>
+                        <p>Episodes: ${data.episodes || 'N/A'}</p>
+                    `;
+                }
+            });
+        </script>
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Anime Aggregator</p>
+    </footer>
+</body>
+</html>
