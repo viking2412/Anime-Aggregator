@@ -4,27 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anime Aggregator</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
 </head>
 <body>
     <header>
         <h1>Welcome to Anime Aggregator</h1>
-    </header>
-    <main>
-        <section id="anime-list">
-            <h2>Popular Anime</h2>
-            <ul>
-                {% for anime in anime_list %}
-                <li>
-                    <strong>{{ anime.title }}</strong> - {{ anime.genre }}
-                </li>
-                {% endfor %}
-            </ul>
-        </section>
         <form id="search-form">
             <input type="text" name="query" placeholder="Search for anime..." required>
             <button type="submit">Search</button>
         </form>
+    </header>
+    <main>
+        <section id="anime-list">
+            <h2>Popular Anime</h2>
+            <div class="row">
+                {% for data in anime_list %}               
+                <div class="column">
+                    <h2>{% firstof data.title.romaji data.title.english data.title.native %}</h2>
+                    <!-- <p>{{ data.description|cut:"<br>" }}</p> -->
+                    <p>Genres: {{ data.genres|join:", " }}</p>
+                    <p>Episodes: {% firstof data.episodes 'N/A' %}</p>
+                    <img src= "{{ data.coverImage.large }}" alt="{{ data.title.romaji }}">
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        
         
         <div id="results"></div>
         
@@ -55,7 +60,7 @@
         
     </main>
     <footer>
-        <p>&copy; 2024 Anime Aggregator</p>
+        <p>&copy; 2025 Anime Aggregator</p>
     </footer>
 </body>
 </html>

@@ -23,13 +23,13 @@ query ($search: String) {
 ANILIST_API_URL = "https://graphql.anilist.co"
 
 def home(request):
-    #return render(request, 'core/index.html')  # Render the template
+    # return render(request, 'core/index.html')  # Render the template
     anime_list = [
-        {"title": "Attack on Titan", "genre": "Action"},
-        {"title": "Naruto", "genre": "Adventure"},
-        {"title": "One Piece", "genre": "Fantasy"},
+      fetch_anime_data("Naruto"),
+      fetch_anime_data("Attack on Titan"),
+      fetch_anime_data("One Piece"),
     ]
-    return render(request, 'core/index.html', {'anime_list': anime_list})
+    return render(request, 'index.html', {'anime_list': anime_list})
 
 
 def search_anime(request):

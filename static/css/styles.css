@@ -1,0 +1,46 @@
+body {
+    height: 100%;
+    
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    
+    background: #396bd8;
+    color: #0d23cb;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    height: 100%;
+    background: #0b3965c4;
+    padding-left: 3em;
+    padding: 2em;
+}
+form {
+    padding-top: 1em;
+    padding-right: 5em;
+    text-align: right;
+}
+
+.column {
+  float: left;
+  width: 25%;
+  padding: 5px;
+}
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+footer {
+    color: #ffffff;
+    background: #000000;
+    text-align: center;
+    padding: 0.000784em;
+    bottom: 0;
+}
